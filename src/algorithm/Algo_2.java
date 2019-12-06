@@ -5,9 +5,9 @@ import java.nio.file.Paths;
 
 
 public class Algo_2 {
-	final static String  leftUp = "↖";
-	final static String  left = "←";
-	final static String  up = "↑";
+	final static String  leftUp = "LU";
+	final static String  left = "L";
+	final static String  up = "U";
 
 	public static void main(String[] args) {
 		int longestLen;
@@ -116,7 +116,7 @@ public class Algo_2 {
 			}
 			ele = arr[char1Index][char2Index];
 		}
-		// 取得最常字串
+		// 取得最長字串
 		StringBuilder sb = new StringBuilder();
 		for(char c: longestCharArr) {
 			sb.append(c);
