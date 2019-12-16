@@ -13,15 +13,15 @@ public class Algo_2 {
 		int longestLen;
 		String longestStr;
 		CompareElement[][] arr;
-		// 儲存字串的字元陣列
+		// char arrays storing strings
 		char[] char1, char2;
-		// 將儲存TXT檔的兩個字串的陣列
+		// string arrays that will store the two lines in the txt file
 		String[] strArr = new String[2];
-		// 串接為TXT檔案路徑
+		// concat the path of the txt file
 		Path path = Paths.get(System.getProperty("user.dir"), "src", "algorithm", "LCS_test.txt");				
 		File txt = new File(path.toString());
 		
-		// 從文字檔中取得字串，並放入strArr陣列中
+		//get the strings from the txt file and put them into strArr 
 		try(BufferedReader br = new BufferedReader(new FileReader(txt))){
 			for(int i =0 ; br.ready(); i++) {
 				strArr[i] = br.readLine();
@@ -33,12 +33,14 @@ public class Algo_2 {
 			e.printStackTrace();
 		}
 
-		// 將strArr中的兩字串分別轉為字元陣列
+		// convert two strings in the strArr into two char arrays
 		char1 = strArr[0].toCharArray();
 		char2 = strArr[1].toCharArray();
 
-		// 建立二維陣列，其中列的長度為char1長度+1，行的長度為char2長度+1
-		// 因為new int[][] 的緣故，所以目前所有陣列值皆為0
+		// crate a two dimension array, 
+		// where the length of the row equals to the length of char1 + 1
+		// and the length of the column equals to the length of char2 + 1.
+		// the all values of the following array are zero because we new a int[][]
 		arr = new CompareElement[char1.length+1][char2.length+1];
 		for(int j =0 ; j < arr.length ; j++ ) {
 			CompareElement[] row = arr[j];
@@ -67,12 +69,12 @@ public class Algo_2 {
 		longestLen = arr[char1.length][char2.length].value;
 		longestStr = findLongestString(arr, char1, char2);
 		
-		System.out.println("最長子序列長度為：" + longestLen);
-		System.out.println("最長子序列為：" + longestStr);
+		System.out.println("The length of the longest subsequence is：" + longestLen);
+		System.out.println("The longest subsequence is：" + longestStr);
 
 		
 
-//		// 印出計算後的矩陣
+//		// print the computing array
 //		for(CompareElement[] row: arr) {
 //			for(CompareElement ele:row) {
 //				System.out.print(ele.value + "  ");
@@ -90,7 +92,7 @@ public class Algo_2 {
 	}
 
 	private static String findLongestString(CompareElement[][] arr, char[] char1, char[] char2) {
-		// 從最後一個點開始找
+		// find the characters of the longest subsequence from the last element of the given array
 		int char1Index = char1.length;
 		int char2Index = char2.length;
 		CompareElement ele = arr[char1Index][char2Index];
@@ -116,7 +118,7 @@ public class Algo_2 {
 			}
 			ele = arr[char1Index][char2Index];
 		}
-		// 取得最長字串
+		// get the longest string
 		StringBuilder sb = new StringBuilder();
 		for(char c: longestCharArr) {
 			sb.append(c);

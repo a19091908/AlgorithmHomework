@@ -5,20 +5,20 @@ public class Algo_1 {
 
 	public static void main(String[] str) {
 
-		// 頂點
+		// vertex array
 		char[] charArr = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K' };
 
-		// 已拜訪頂點
+		// visited vertex array
 		boolean[] visitedArr = new boolean[charArr.length];
 
-		// 起點為A
+		// we run the algorithm from A
 		char startVertex = 'A';
 		int startIndex = 0;
 
-		// 從起始點s到其他點的最短距離陣列
+		// the shortest distance from start vertex to others
 		double[] minDis = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
 
-		// 建立走訪陣列
+		// create the cost array between any two vertexes
 		double[][] disArr = 
 			{   { 0, 3, 0, 0, 2, 0, 0, 0, 0, 0, 0 }, 
 				{ 3, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0 },
@@ -32,7 +32,7 @@ public class Algo_1 {
 				{ 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 1 },
 				{ 0, 0, 0, 0, 0, 0, 0, 3, 5, 1, 0 } };
 
-		// 設定minDis：除了起始點設為0，其餘皆設為無限大。
+		// set the value of the minDis to infinite except setting the start vertex to 0 
 		for (int i = 0; i < minDis.length; i++) {
 			if (charArr[i] == startVertex) {
 				minDis[i] = 0;
@@ -48,19 +48,20 @@ public class Algo_1 {
 			double[] row;
 
 
-			// 挑選minDis中最小值的index
-			// 並將此點(index)放入visitedArr中
+			// find the minimum number's index in minDis
+			// and put this vertex(index) into visitedArr
 			minIndex = minIndexInArr(minDis, visitedArr);
 			if(minIndex == -1) {
 				break;
 			}
 			visitedArr[minIndex] = true;
 
-			// 更新此次造訪的點所連接的所有點的權重到minDis
+			// update all distance in minDis between the selected vertex and the vertex connecting to it   
 			row = disArr[minIndex];
 			for (int j = 0; j < row.length; j++) {
-				// 若權重為0，跳過
-				// 若權重非0，比較新的距離是否小於舊距離(minDis的距離)，較小者存入minDis
+				// if the cost is 0, then skip
+				// else compare the new distance is bigger than the old one, 
+				// and put the smaller into minDis
 				if (row[j] == 0) {
 					continue;
 				} else {
@@ -94,11 +95,9 @@ public class Algo_1 {
 		System.out.println("-------------");
 	}
 
-	/*
-	 * 找出未被造訪且最小的index
-	 */
+	
+	// find the smallest and not visited vertex
 	private static int minIndexInArr(double[] minDis, boolean[] visitedArr) {
-		// TODO Auto-generated method stub
 		double tempMinVal = Double.POSITIVE_INFINITY;
 		int tempMinIndex = -1;
 
