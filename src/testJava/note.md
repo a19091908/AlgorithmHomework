@@ -2,6 +2,7 @@
 
 
    **多個執行緒同時**做不同的事。
+   平行運算可以當作Concurrent的特例。
    
    
    1.  例子：計算費波南西數、排序
@@ -29,5 +30,10 @@
    1.  例子：寄送會員認證信、登入通知
    
    2.  實作：Java中可使用Thread或Runnable實作，[連結](https://github.com/a19091908/AlgorithmHomework/tree/master/src/testJava)
+
+## Context Switch
+
+
+## Work Stealing
 
 
