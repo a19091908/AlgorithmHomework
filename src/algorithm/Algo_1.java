@@ -2,6 +2,7 @@ package algorithm;
 
 
 public class Algo_1 {
+	static final Integer INF = Integer.MAX_VALUE;
 
 	public static void main(String[] str) {
 
@@ -16,10 +17,20 @@ public class Algo_1 {
 		int startIndex = 0;
 
 		// the shortest distance from start vertex to others
-		double[] minDis = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		Integer[] minDis = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		
+		// set the value of the minDis to infinite except setting the start vertex to 0 
+		for (int i = 0; i < minDis.length; i++) {
+			if (charArr[i] == startVertex) {
+				minDis[i] = 0;
+				startIndex = i;
+			} else {
+				minDis[i] = INF;
+			}
+		}
 
 		// create the cost array between any two vertexes
-		double[][] disArr = 
+		Integer[][] disArr = 
 			{   { 0, 3, 0, 0, 2, 0, 0, 0, 0, 0, 0 }, 
 				{ 3, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0 },
 				{ 0, 5, 0, 2, 0, 0, 0, 0, 0, 0, 0 }, 
@@ -31,24 +42,13 @@ public class Algo_1 {
 				{ 0, 0, 0, 0, 0, 2, 0, 1, 0, 0, 5 }, 
 				{ 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 1 },
 				{ 0, 0, 0, 0, 0, 0, 0, 3, 5, 1, 0 } };
-
-		// set the value of the minDis to infinite except setting the start vertex to 0 
-		for (int i = 0; i < minDis.length; i++) {
-			if (charArr[i] == startVertex) {
-				minDis[i] = 0;
-				startIndex = i;
-			} else {
-				minDis[i] = Double.POSITIVE_INFINITY;
-			}
-		}
-
-		
+	
 		for (int i = startIndex; i < disArr.length; i++) {
 			int minIndex;
-			double[] row;
+			Integer[] row;
 
 
-			// find the minimum number's index in minDis
+			// find the index of the minimum number in minDis
 			// and put this vertex(index) into visitedArr
 			minIndex = minIndexInArr(minDis, visitedArr);
 			if(minIndex == -1) {
@@ -56,17 +56,17 @@ public class Algo_1 {
 			}
 			visitedArr[minIndex] = true;
 
-			// update all distance in minDis between the selected vertex and the vertex connecting to it   
+			// update all distance in minDis that from  the selected vertex to its adjacent vertex   
 			row = disArr[minIndex];
 			for (int j = 0; j < row.length; j++) {
 				// if the cost is 0, then skip
-				// else compare the new distance is bigger than the old one, 
+				// else compare  the new distance and the old one, 
 				// and put the smaller into minDis
 				if (row[j] == 0) {
 					continue;
 				} else {
-					if (minDis[minIndex] + row[j] < minDis[j]) {
-						minDis[j] = minDis[minIndex] + row[j];
+					if ( plus(minDis[minIndex], row[j]) < minDis[j]) {
+						minDis[j] = plus( minDis[minIndex], row[j] );
 					}
 				}
 			}
@@ -77,8 +77,7 @@ public class Algo_1 {
 
 	}
 
-	private static void printMinDis(double[] minDis, boolean[] visitedArr, char[] charArr) {
-		// TODO Auto-generated method stub
+	private static void printMinDis(Integer[] minDis, boolean[] visitedArr, char[] charArr) {
 		String row = "", visitedVertex = "";
 		for (int k = 0; k < minDis.length; k++) {
 			row = row + charArr[k] + " : " + minDis[k] + "\n";
@@ -91,14 +90,14 @@ public class Algo_1 {
 			}
 		}
 		System.out.print(row);
-		System.out.println(visitedVertex);
+		System.out.println("Visited vertex: " + visitedVertex);
 		System.out.println("-------------");
 	}
 
 	
 	// find the smallest and not visited vertex
-	private static int minIndexInArr(double[] minDis, boolean[] visitedArr) {
-		double tempMinVal = Double.POSITIVE_INFINITY;
+	private static int minIndexInArr(Integer[] minDis, boolean[] visitedArr) {
+		Integer tempMinVal = INF;
 		int tempMinIndex = -1;
 
 		for (int i = 0; i < minDis.length; i++) {
@@ -114,6 +113,15 @@ public class Algo_1 {
 			
 		}
 		return tempMinIndex;
+	}
+	
+	// avoid the sum of two numbers over the highest limitation of Integer
+	static private Integer plus(Integer a, Integer b) {
+		if(a == INF || b == INF) {
+			return INF;
+		}else {
+			return a + b;
+		}
 	}
 
 }

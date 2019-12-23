@@ -5,9 +5,9 @@ import java.nio.file.Paths;
 
 
 public class Algo_2 {
-	final static String  leftUp = "LU";
-	final static String  left = "L";
-	final static String  up = "U";
+	static final  String  leftUp = "LU";
+	static final  String  left = "L";
+	static final  String  up = "U";
 
 	public static void main(String[] args) {
 		int longestLen;
@@ -69,8 +69,8 @@ public class Algo_2 {
 		longestLen = arr[char1.length][char2.length].value;
 		longestStr = findLongestString(arr, char1, char2);
 		
-		System.out.println("The length of the longest subsequence is：" + longestLen);
-		System.out.println("The longest subsequence is：" + longestStr);
+		System.out.println("The length of the longest subsequence of two sequence is：" + longestLen);
+		System.out.println("The longest subsequence of two sequence is：" + longestStr);
 
 		
 
