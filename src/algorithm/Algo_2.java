@@ -1,3 +1,5 @@
+// 姓名：吳軒穎
+// 學號：e608502004
 package algorithm;
 import java.io.*;
 import java.nio.file.Path;
@@ -5,9 +7,9 @@ import java.nio.file.Paths;
 
 
 public class Algo_2 {
-	static final  String  leftUp = "LU";
-	static final  String  left = "L";
-	static final  String  up = "U";
+	static final  String  LEFTUP = "LU";
+	static final  String  LEFT = "L";
+	static final  String  UP = "U";
 
 	public static void main(String[] args) {
 		int longestLen;
@@ -53,14 +55,14 @@ public class Algo_2 {
 			for (int i = 1; i < arr[j].length; i++) {
 				if (char1[j-1] == char2[i - 1]) {
 					arr[j][i].value = arr[j - 1][i - 1].value + 1;
-					arr[j][i].direction = leftUp;
+					arr[j][i].direction = LEFTUP;
 				} else {
 					if (arr[j - 1][i].value >= arr[j][i - 1].value) {
 						arr[j][i].value = arr[j - 1][i].value;
-						arr[j][i].direction = up;
+						arr[j][i].direction = UP;
 					} else {
 						arr[j][i].value = arr[j][i - 1].value;
-						arr[j][i].direction = left;
+						arr[j][i].direction = LEFT;
 					}
 				}
 			}
@@ -101,16 +103,16 @@ public class Algo_2 {
 		
 		while(ele.direction != null) {
 			switch (ele.direction) {
-			case leftUp:
+			case LEFTUP:
 				longestCharArr[charIndex-1] = char1[char1Index-1];
 				charIndex -= 1;
 				char1Index -=1;
 				char2Index -=1;
 				break;
-			case left:
+			case LEFT:
 				char2Index -=1;
 				break;
-			case up:
+			case UP:
 				char1Index -=1;
 				break;
 			default:

@@ -1,3 +1,5 @@
+// 姓名：吳軒穎
+// 學號：e608502004
 package algorithm;
 
 
@@ -8,16 +10,21 @@ public class Algo_1 {
 
 		// vertex array
 		char[] charArr = { 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K' };
-
+		
 		// visited vertex array
 		boolean[] visitedArr = new boolean[charArr.length];
+		
+		// the previous vertex of the shortest path
+		int[] previousVertex = new int[charArr.length];
 
 		// we run the algorithm from A
 		char startVertex = 'A';
 		int startIndex = 0;
-
+		// set the previous vertex of start vertex = ' '
+		previousVertex[startIndex] = -1; 
+		
 		// the shortest distance from start vertex to others
-		Integer[] minDis = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+		Integer[] minDis = new Integer[charArr.length];
 		
 		// set the value of the minDis to infinite except setting the start vertex to 0 
 		for (int i = 0; i < minDis.length; i++) {
@@ -43,10 +50,9 @@ public class Algo_1 {
 				{ 0, 0, 0, 0, 0, 0, 2, 2, 0, 0, 1 },
 				{ 0, 0, 0, 0, 0, 0, 0, 3, 5, 1, 0 } };
 	
-		for (int i = startIndex; i < disArr.length; i++) {
+		for (int i = 0; i < disArr.length; i++) {
 			int minIndex;
 			Integer[] row;
-
 
 			// find the index of the minimum number in minDis
 			// and put this vertex(index) into visitedArr
@@ -67,14 +73,25 @@ public class Algo_1 {
 				} else {
 					if ( plus(minDis[minIndex], row[j]) < minDis[j]) {
 						minDis[j] = plus( minDis[minIndex], row[j] );
+						previousVertex[j] = minIndex;
 					}
 				}
 			}
-			printMinDis(minDis, visitedArr, charArr);
+			printPath(minIndex, previousVertex, charArr, minDis);
+//			printMinDis(minDis, visitedArr, charArr);
 		}
-		
 
+	}
+	
+	private static void printPath(int minIndex, int[] previousVertex, char[] charArr, Integer[] minDis) {
+		String s = "";
+		int index = minIndex;
+		while(index != -1) {
+			s = charArr[index] + s;
+			index = previousVertex[index];
+		}
 
+		System.out.println(s + ": " + minDis[minIndex]);
 	}
 
 	private static void printMinDis(Integer[] minDis, boolean[] visitedArr, char[] charArr) {
